@@ -1,0 +1,42 @@
+
+body {
+    background: linear-gradient(135deg, #2c2c2c, #555, #aaa);
+    height: 100vh;
+    margin: 0;
+}
+
+.loginbox{
+    justify-items: top;
+    align-content:center;
+    border-radius: 25px 25px 25px 25px;
+    outline-color: black;
+    outline-style: dashed;
+    background: linear-gradient(135deg, #001f3f, #005f99, #0099ff);
+    width: 750px;
+    height: 500px;
+}
+.loginContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    
+}
+.form-control{
+    align-self: flex-start;
+    width: 50%;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.form-label{
+    color: white;
+    align-items: center;
+}
+.loginbox h1{
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+}
+
+
