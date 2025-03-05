@@ -19,7 +19,10 @@ function displayLogin() {
             <button type="submit" class="btn btn-primary">Login</button>
             <button type="button" class="btn btn-secondary" onclick="displayRegister()">Register</button>
         </form>
-        `; 
+        `
+        
+        ; 
+        
 }
 window.onload = displayLogin;
 
