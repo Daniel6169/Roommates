@@ -1,5 +1,5 @@
-
-
+let usernames = [];
+let passwords = [];
 function displayLogin() {
     const loginForm = document.getElementById("login");
     const registerForm = document.getElementById("register");
@@ -16,7 +16,7 @@ function displayLogin() {
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" required>
             </div>
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-primary" onclick="loginUser">Login</button>
             <button type="button" class="btn btn-secondary" onclick="displayRegister()">Register</button>
         </form>
         `
@@ -46,8 +46,36 @@ function displayRegister() {
                 <label for="confirm-password" class="form-label">Confirm Password</label>
                 <input type="password" class="form-control" id="confirm-password" required>
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary" onclick="registerUser()">Register</button>
             <buttom type="button" class="btn btn-secondary" onclick="displayLogin()">Login</button>
         </form>
         `;
+}
+function registerUser() {
+    const registerForm = document.getElementById("register-form");
+    const username = registerForm.username.value;
+    const password = registerForm.password.value;
+    const confirmPassword = registerForm["confirm-password"].value;
+    if (password !== confirmPassword) {
+        alert("Passwords do not match");
+        return;
+    }
+    usernames.push(username);
+    passwords.push(password);
+    displayLogin();
+}
+function loginUser() {
+    const loginForm = document.getElementById("login-form");
+    const username = loginForm.username.value;
+    const password = loginForm.password.value;
+    const index = usernames.indexOf(username);
+    if (index === -1) {
+        alert("Username not found");
+        return;
+    }
+    if (passwords[index] !== password) {
+        alert("Incorrect password");
+        return;
+    }
+    alert("Login successful");
 }
