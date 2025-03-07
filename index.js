@@ -1,5 +1,32 @@
-let usernames = [];
-let passwords = [];
+const dataBase_id = "1347221981413695488";
+var database_content = {};
+
+function uploadData() {
+    axios.put(`https://jsonblob.com/api/jsonBlob/${dataBase_id}`, database_content)
+    .then(function(response) {
+        console.log("Data uploaded:", response.data);
+    })
+    .catch(function(error) {
+        console.error("Error uploading data:", error);
+    });
+}
+
+function downloadData() {
+    axios.get(`https://jsonblob.com/api/jsonBlob/${dataBase_id}`)
+    .then(function(response) {
+        console.log("Data downloaded:", response.data);
+        database_content = response.data || {};
+        
+    })
+    .catch(function(error) {
+        console.error("Error downloading data:", error);
+        
+    });
+}
+
+downloadData(); // Download data from the server on page load
+
+// This function displays the login form
 function displayLogin() {
     const loginForm = document.getElementById("login");
     const registerForm = document.getElementById("register");
@@ -7,7 +34,7 @@ function displayLogin() {
     loginForm.style.display = "block";
     loginForm.innerHTML = `
         <h1>Login</h1>
-        <form id="login-form">
+        <form id="login-form" onsubmit="loginUser(event)">
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
                 <input type="text" class="form-control" id="username" required>
@@ -16,16 +43,14 @@ function displayLogin() {
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" required>
             </div>
-            <button type="submit" class="btn btn-primary" onclick="loginUser">Login</button>
+            <button type="submit" class="btn btn-primary">Login</button>
             <button type="button" class="btn btn-secondary" onclick="displayRegister()">Register</button>
         </form>
-        `
-        
-        ; 
-        
+    `;
 }
-window.onload = displayLogin;
+window.onload = displayLogin; // Call the function that displays the login form
 
+// This function displays the register form
 function displayRegister() {
     const loginForm = document.getElementById("login");
     const registerForm = document.getElementById("register");
@@ -33,49 +58,43 @@ function displayRegister() {
     registerForm.style.display = "block";
     registerForm.innerHTML = `
         <h1>Register</h1>
-        <form id="register-form">
+        <form id="register-form" onsubmit="registerUser(event)">
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" required>
+                <input type="text" class="form-control" id="new_username" required>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" required>
+                <input type="password" class="form-control" id="new_password" required>
             </div>
             <div class="mb-3">
                 <label for="confirm-password" class="form-label">Confirm Password</label>
                 <input type="password" class="form-control" id="confirm-password" required>
             </div>
-            <button type="submit" class="btn btn-primary" onclick="registerUser()">Register</button>
-            <buttom type="button" class="btn btn-secondary" onclick="displayLogin()">Login</button>
+            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="button" class="btn btn-secondary" onclick="displayLogin()">Login</button>
         </form>
-        `;
+    `;
 }
-function registerUser() {
-    const registerForm = document.getElementById("register-form");
-    const username = registerForm.username.value;
-    const password = registerForm.password.value;
-    const confirmPassword = registerForm["confirm-password"].value;
+
+function registerUser(event) {
+    event.preventDefault(); // Prevent form from reloading the page
+
+    let username = document.getElementById("new_username").value;
+    let password = document.getElementById("new_password").value;
+    let confirmPassword = document.getElementById("confirm-password").value;
+
     if (password !== confirmPassword) {
-        alert("Passwords do not match");
+        alert("Passwords do not match!");
         return;
     }
-    usernames.push(username);
-    passwords.push(password);
+
+    
+
+    let user = { username, password };
+
+    database_content.users.push(user);
+    uploadData();
+    alert("User registered successfully");
     displayLogin();
-}
-function loginUser() {
-    const loginForm = document.getElementById("login-form");
-    const username = loginForm.username.value;
-    const password = loginForm.password.value;
-    const index = usernames.indexOf(username);
-    if (index === -1) {
-        alert("Username not found");
-        return;
-    }
-    if (passwords[index] !== password) {
-        alert("Incorrect password");
-        return;
-    }
-    alert("Login successful");
 }
