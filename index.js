@@ -98,3 +98,16 @@ function registerUser(event) {
     alert("User registered successfully");
     displayLogin();
 }
+function loginUser(event){
+    event.preventDefault();//prevents form from reloading page
+    username = document.getElementById("username").value;
+    password = document.getElementById("password").value;
+    
+    if (database_content.users.some(users => users.username === username && users.password === password)){
+        window.location.href = "roommates.html";
+    }
+    else{
+        alert("Username and Password doesn't match or is wrong");
+    }
+    
+}

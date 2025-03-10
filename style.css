@@ -58,3 +58,41 @@ body {
     margin-top: 20px;
 }
 
+body {
+    background: linear-gradient(135deg, #2c2c2c, #555, #aaa);
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.room-card, .todo-card, .bills-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 20px;
+    border: solid 1px black;
+    border-radius: 5px;
+    padding: 20px;
+    background: linear-gradient(135deg, #001f3f, #005f99, #0099ff);
+    color: white;
+    width: 100%;
+    margin: 10px;
+    box-sizing: border-box;
+}
+
+
+
+li {
+    padding: 12px;
+    margin: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+}
+
+
+
+
+
