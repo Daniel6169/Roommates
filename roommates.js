@@ -109,8 +109,15 @@ function displayBills() {
         <div class="bills-Card">
             <h1>Bills</h1>
             <ul id="bills-List" class="list-group"></ul>
-            <input type="text" class="form-control" id="bills-input" placeholder="Add a new bill">
+            <form>
+            <div class="mb-3">
+            <input type="text" class="form-control" id="billName-input" placeholder="Enter The Bill Name">
+            </div>
+            <div class="mb-3">
+            <input type="text" class="form-control" id="ammount-input" placeholder="Enter The Ammount">
+            </div>
             <button type="button" class="btn btn-primary" id="add-bill" onclick="addBill()">Add Bill</button>
+            </form>
         </div>
     `;
     
@@ -126,7 +133,9 @@ function displayBills() {
 }
 
 function addBill() {
-    const newBill = document.getElementById("bills-input").value;
+    let billName = document.getElementById("billName-input").value;
+    let ammount = document.getElementById("ammount-input").value;
+    newBill = billName + " - $" + ammount;
     if (newBill) {
         database_content.bills.push(newBill);
         uploadData();
